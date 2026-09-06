@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple automatic ordering system MVP">
+  <title>OrderFlow — Automatic Ordering MVP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#shop">Order<span>Flow</span></a>
+      <nav>
+        <a href="#shop">Shop</a>
+        <a href="#orders">Track Order</a>
+        <a href="#admin">Admin</a>
+      </nav>
+      <button class="cart-btn" id="openCart">Cart <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="shop">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">AUTOMATIC ORDERING SYSTEM</p>
+          <h1>Turn website visitors into organized orders.</h1>
+          <p class="hero-copy">A clean MVP for product ordering, automatic order creation, admin order management and customer tracking.</p>
+          <a class="primary-btn" href="#products">Start Shopping</a>
+        </div>
+        <div class="hero-card">
+          <div class="status-dot"></div>
+          <p>Live order workflow</p>
+          <strong>New → Confirmed → Processing → Shipped → Delivered</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section" id="products">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">PRODUCTS</p>
+          <h2>Choose your products</h2>
+        </div>
+        <div class="search-wrap"><input id="search" type="search" placeholder="Search products..."></div>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section class="container section tracking" id="orders">
+      <div class="panel">
+        <p class="eyebrow">CUSTOMER TRACKING</p>
+        <h2>Track an order</h2>
+        <p class="muted">Use your order number and mobile number.</p>
+        <div class="track-form">
+          <input id="trackOrderId" placeholder="Order ID e.g. ORD-20260905-0001">
+          <input id="trackPhone" placeholder="10-digit mobile number" inputmode="numeric">
+          <button class="primary-btn" id="trackBtn">Track Order</button>
+        </div>
+        <div id="trackResult"></div>
+      </div>
+    </section>
+
+    <section class="container section" id="admin">
+      <div class="admin-header">
+        <div>
+          <p class="eyebrow">ADMIN</p>
+          <h2>Order dashboard</h2>
+          <p class="muted">Demo authentication is enabled for this MVP. Production should use server-side authentication.</p>
+        </div>
+        <button class="secondary-btn" id="seedBtn">Load Demo Order</button>
+      </div>
+      <div class="admin-toolbar">
+        <input id="adminSearch" placeholder="Search order/customer...">
+        <select id="statusFilter">
+          <option value="ALL">All statuses</option>
+          <option>NEW</option>
+          <option>CONFIRMED</option>
+          <option>PROCESSING</option>
+          <option>SHIPPED</option>
+          <option>DELIVERED</option>
+          <option>CANCELLED</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="ordersTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="cartModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head"><h3>Your Cart</h3><button class="icon-btn" data-close="cartModal">×</button></div>
+      <div id="cartItems"></div>
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+      <button class="primary-btn full" id="checkoutBtn">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="checkoutModal" aria-hidden="true">
+    <div class="modal-card large">
+      <div class="modal-head"><h3>Checkout</h3><button class="icon-btn" data-close="checkoutModal">×</button></div>
+      <form id="checkoutForm" novalidate>
+        <div class="form-grid">
+          <label>Full name<input name="name" required maxlength="80"></label>
+          <label>Mobile<input name="phone" required inputmode="numeric" maxlength="10"></label>
+          <label>Email<input name="email" type="email" maxlength="120"></label>
+          <label>Pincode<input name="pincode" required inputmode="numeric" maxlength="6"></label>
+          <label class="span-2">Address<textarea name="address" required maxlength="300"></textarea></label>
+          <label>City<input name="city" required maxlength="60"></label>
+          <label>State<input name="state" required maxlength="60"></label>
+          <label>Payment
+            <select name="paymentMethod"><option value="COD">Cash on Delivery</option></select>
+          </label>
+        </div>
+        <div id="checkoutError" class="error-box hidden"></div>
+        <button class="primary-btn full" type="submit">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
